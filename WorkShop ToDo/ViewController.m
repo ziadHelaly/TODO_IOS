@@ -25,6 +25,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+}
+- (void)viewWillAppear:(BOOL)animated{
     [self categorizeTasks];
 }
 - (IBAction)add:(id)sender {
@@ -44,9 +47,9 @@
     } else {
         _savedTasks = [NSMutableArray new];
     }
-    _high = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 0"]];
-    _medium = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 1"]];
-    _low = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 2"]];
+    _high = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 0 AND status == 0"]];
+    _medium = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 1 AND status == 0"]];
+    _low = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 2 AND status == 0"]];
     
     NSLog(@"%ld High tasks", (long)_high.count);
     NSLog(@"%ld Medium tasks", (long)_medium.count);

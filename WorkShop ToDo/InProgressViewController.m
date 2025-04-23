@@ -13,7 +13,7 @@
 @interface InProgressViewController ()
 @property NSArray<Task*> *high,*medium,*low;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property BOOL sorted;
 @property NSMutableArray<Task*> *savedTasks;
 @property NSUserDefaults *ud;
 @end
@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _sorted=YES;
 }
 - (void)viewDidAppear:(BOOL)animated{
     [self categorizeTasks];
@@ -55,11 +56,16 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return (_sorted)?3:1;
 }
 
+- (IBAction)sort:(id)sender {
+    _sorted= !_sorted;
+    [_tableView reloadData];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if(!_sorted) return _savedTasks.count;
     switch (section) {
         case 0: return _high.count;
         case 1: return _medium.count;
@@ -68,16 +74,16 @@
     }
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-        switch (section) {
+    if (!_sorted) {
+        return @"In Progress Tasks";
+    }
+    switch (section) {
             case 0:
                 return @"High";
-                break;
             case 1:
                 return @"Medium";
-                break;
             default:
                 return @"Low";
-                break;
         }
 
 }
@@ -86,24 +92,43 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     Task *task;
-    switch (indexPath.section) {
-        case 0: {
-            task = _high[indexPath.row];
-            cell.imageView.image = [UIImage imageNamed:@"high"];
-            break;
+    if (!_sorted) {
+        task= _savedTasks[indexPath.row];
+        switch (task.priority) {
+            case 0: {
+                cell.imageView.image = [UIImage imageNamed:@"high"];
+                break;
+            }
+            case 1: {
+                cell.imageView.image =[UIImage imageNamed:@"medium"];
+                break;
+            }
+            case 2: {
+                cell.imageView.image =[UIImage imageNamed:@"low"];
+                break;
+            }
         }
-        case 1: {
-            task = _medium[indexPath.row];
-            cell.imageView.image =[UIImage imageNamed:@"medium"];
-            break;
-        }
-        case 2: {
-            task = _low[indexPath.row];
-            cell.imageView.image =[UIImage imageNamed:@"low"];
-            break;
+
+    }else{
+        switch (indexPath.section) {
+            case 0: {
+                task = _high[indexPath.row];
+                cell.imageView.image = [UIImage imageNamed:@"high"];
+                break;
+            }
+            case 1: {
+                task = _medium[indexPath.row];
+                cell.imageView.image =[UIImage imageNamed:@"medium"];
+                break;
+            }
+            case 2: {
+                task = _low[indexPath.row];
+                cell.imageView.image =[UIImage imageNamed:@"low"];
+                break;
+            }
         }
     }
-    
+        
     cell.textLabel.text = task.title;
     
     
