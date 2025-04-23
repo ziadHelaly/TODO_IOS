@@ -34,6 +34,7 @@
     if (encoded) {
         NSError *error = nil;
         _savedTasks = [NSKeyedUnarchiver unarchiveObjectWithData:encoded];
+        _savedTasks = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"status == 1"]];
         if (error) {
             NSLog(@"Error decoding tasks: %@", error.localizedDescription);
         }
