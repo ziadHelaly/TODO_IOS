@@ -16,6 +16,13 @@
 		2B26C5D42DB8C74E000DC32A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26C5D32DB8C74E000DC32A /* main.m */; };
 		2B26C5DE2DB8C74F000DC32A /* WorkShop_ToDoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26C5DD2DB8C74F000DC32A /* WorkShop_ToDoTests.m */; };
 		2B26C5E92DB8C74F000DC32A /* WorkShop_ToDoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26C5E82DB8C74F000DC32A /* WorkShop_ToDoUITests.m */; };
+		9BA28FDB2DB8D3890009DDDB /* InProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA28FDA2DB8D3890009DDDB /* InProgressViewController.m */; };
+		9BA28FDE2DB8D3A80009DDDB /* DoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA28FDD2DB8D3A80009DDDB /* DoneViewController.m */; };
+		9BE8F8192DB8D67600701D36 /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE8F8182DB8D67600701D36 /* AddViewController.m */; };
+		9BE8F81C2DB8D74000701D36 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE8F81B2DB8D74000701D36 /* DetailsViewController.m */; };
+		9BE8F81F2DB8E93100701D36 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE8F81E2DB8E93100701D36 /* Task.m */; };
+		9BE8F8432DB8EF0100701D36 /* UserDefultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE8F8422DB8EF0100701D36 /* UserDefultsHelper.m */; };
+		9BE8F8462DB9227000701D36 /* TODOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE8F8452DB9227000701D36 /* TODOViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +61,21 @@
 		2B26C5E42DB8C74F000DC32A /* WorkShop ToDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WorkShop ToDoUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B26C5E82DB8C74F000DC32A /* WorkShop_ToDoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkShop_ToDoUITests.m; sourceTree = "<group>"; };
 		2B26C5EA2DB8C74F000DC32A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BA28FD92DB8D3890009DDDB /* InProgressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InProgressViewController.h; sourceTree = "<group>"; };
+		9BA28FDA2DB8D3890009DDDB /* InProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InProgressViewController.m; sourceTree = "<group>"; };
+		9BA28FDC2DB8D3A80009DDDB /* DoneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoneViewController.h; sourceTree = "<group>"; };
+		9BA28FDD2DB8D3A80009DDDB /* DoneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoneViewController.m; sourceTree = "<group>"; };
+		9BE8F8172DB8D67600701D36 /* AddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddViewController.h; sourceTree = "<group>"; };
+		9BE8F8182DB8D67600701D36 /* AddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddViewController.m; sourceTree = "<group>"; };
+		9BE8F81A2DB8D74000701D36 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		9BE8F81B2DB8D74000701D36 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		9BE8F81D2DB8E93100701D36 /* Task.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		9BE8F81E2DB8E93100701D36 /* Task.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		9BE8F8412DB8EF0100701D36 /* UserDefultsHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefultsHelper.h; sourceTree = "<group>"; };
+		9BE8F8422DB8EF0100701D36 /* UserDefultsHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefultsHelper.m; sourceTree = "<group>"; };
+		9BE8F8442DB9227000701D36 /* TODOViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TODOViewController.h; sourceTree = "<group>"; };
+		9BE8F8452DB9227000701D36 /* TODOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TODOViewController.m; sourceTree = "<group>"; };
+		9BE8F8472DB9323600701D36 /* MyDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyDelegation.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +137,21 @@
 				2B26C5CF2DB8C74E000DC32A /* LaunchScreen.storyboard */,
 				2B26C5D22DB8C74E000DC32A /* Info.plist */,
 				2B26C5D32DB8C74E000DC32A /* main.m */,
+				9BA28FD92DB8D3890009DDDB /* InProgressViewController.h */,
+				9BA28FDA2DB8D3890009DDDB /* InProgressViewController.m */,
+				9BA28FDC2DB8D3A80009DDDB /* DoneViewController.h */,
+				9BA28FDD2DB8D3A80009DDDB /* DoneViewController.m */,
+				9BE8F8172DB8D67600701D36 /* AddViewController.h */,
+				9BE8F8182DB8D67600701D36 /* AddViewController.m */,
+				9BE8F81A2DB8D74000701D36 /* DetailsViewController.h */,
+				9BE8F81B2DB8D74000701D36 /* DetailsViewController.m */,
+				9BE8F81D2DB8E93100701D36 /* Task.h */,
+				9BE8F81E2DB8E93100701D36 /* Task.m */,
+				9BE8F8412DB8EF0100701D36 /* UserDefultsHelper.h */,
+				9BE8F8422DB8EF0100701D36 /* UserDefultsHelper.m */,
+				9BE8F8442DB9227000701D36 /* TODOViewController.h */,
+				9BE8F8452DB9227000701D36 /* TODOViewController.m */,
+				9BE8F8472DB9323600701D36 /* MyDelegation.h */,
 			);
 			path = "WorkShop ToDo";
 			sourceTree = "<group>";
@@ -266,10 +303,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BE8F8432DB8EF0100701D36 /* UserDefultsHelper.m in Sources */,
+				9BA28FDE2DB8D3A80009DDDB /* DoneViewController.m in Sources */,
 				2B26C5C92DB8C749000DC32A /* ViewController.m in Sources */,
+				9BA28FDB2DB8D3890009DDDB /* InProgressViewController.m in Sources */,
+				9BE8F8192DB8D67600701D36 /* AddViewController.m in Sources */,
 				2B26C5C32DB8C749000DC32A /* AppDelegate.m in Sources */,
 				2B26C5D42DB8C74E000DC32A /* main.m in Sources */,
 				2B26C5C62DB8C749000DC32A /* SceneDelegate.m in Sources */,
+				9BE8F8462DB9227000701D36 /* TODOViewController.m in Sources */,
+				9BE8F81F2DB8E93100701D36 /* Task.m in Sources */,
+				9BE8F81C2DB8D74000701D36 /* DetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

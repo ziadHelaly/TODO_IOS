@@ -1,36 +1,31 @@
 //
-//  ViewController.m
+//  InProgressViewController.m
 //  WorkShop ToDo
 //
-//  Created by ziad helaly on 22/04/2025.
+//  Created by JETSMobileLab9 on 23/04/2025.
 //
 
-#import "ViewController.h"
+#import "InProgressViewController.h"
 #import "DetailsViewController.h"
 #import "UserDefultsHelper.h"
 #import "Task.h"
-#import "AddViewController.h"
-@interface ViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@interface InProgressViewController ()
 @property NSArray<Task*> *high,*medium,*low;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property NSMutableArray<Task*> *savedTasks;
 @property NSUserDefaults *ud;
-
-
 @end
 
-@implementation ViewController
+@implementation InProgressViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self categorizeTasks];
 }
-- (IBAction)add:(id)sender {
-    AddViewController *a =[self.storyboard instantiateViewControllerWithIdentifier:@"add"];
-    a.table=self;
-    [self.navigationController pushViewController:a animated:YES];
+- (void)viewDidAppear:(BOOL)animated{
+    [self categorizeTasks];
+
 }
 - (void)categorizeTasks {
     _ud = [NSUserDefaults standardUserDefaults];
@@ -44,9 +39,9 @@
     } else {
         _savedTasks = [NSMutableArray new];
     }
-    _high = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 0"]];
-    _medium = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 1"]];
-    _low = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 2"]];
+    _high = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 0 AND status == 1"]];
+    _medium = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 1 AND status == 1"]];
+    _low = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 2 AND status == 1"]];
     
     NSLog(@"%ld High tasks", (long)_high.count);
     NSLog(@"%ld Medium tasks", (long)_medium.count);
@@ -62,6 +57,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
@@ -158,3 +154,5 @@
 
 
 @end
+
+
