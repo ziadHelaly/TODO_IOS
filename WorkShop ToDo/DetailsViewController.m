@@ -30,6 +30,9 @@
     _priority.selectedSegmentIndex=_task.priority;
     _status.selectedSegmentIndex=_task.status;
     _date.date=_task.date;
+    _date.minimumDate=[NSDate date];
+
+    
 }
 - (IBAction)edit:(id)sender {
     _ud = [NSUserDefaults standardUserDefaults];

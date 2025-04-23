@@ -11,6 +11,7 @@
 #import "Task.h"
 
 @interface InProgressViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *sortButton;
 @property NSArray<Task*> *high,*medium,*low;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property BOOL sorted;
@@ -22,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _sorted=YES;
+    _sorted=NO;
 }
 - (void)viewDidAppear:(BOOL)animated{
     [self categorizeTasks];
@@ -33,8 +34,9 @@
     NSData *encoded = [_ud objectForKey:@"tasks"];
     if (encoded) {
         NSError *error = nil;
-        _savedTasks = [NSKeyedUnarchiver unarchiveObjectWithData:encoded];
-        _savedTasks = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"status == 1"]];
+        NSArray *unarchivedTasks = [NSKeyedUnarchiver unarchiveObjectWithData:encoded];
+        _savedTasks = [[unarchivedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"status == 1"]] mutableCopy];
+        
         if (error) {
             NSLog(@"Error decoding tasks: %@", error.localizedDescription);
         }
@@ -52,16 +54,13 @@
     [self.tableView reloadData];
 }
 
-- (void)update {
-    [self categorizeTasks];
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return (_sorted)?3:1;
 }
 
 - (IBAction)sort:(id)sender {
     _sorted= !_sorted;
+    [_sortButton setTitle:(_sorted)? @"UnSort":@"Sort" forState:UIControlStateNormal];
     [_tableView reloadData];
 }
 
@@ -93,40 +92,26 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     Task *task;
-    if (!_sorted) {
-        task= _savedTasks[indexPath.row];
-        switch (task.priority) {
-            case 0: {
-                cell.imageView.image = [UIImage imageNamed:@"high"];
-                break;
-            }
-            case 1: {
-                cell.imageView.image =[UIImage imageNamed:@"medium"];
-                break;
-            }
-            case 2: {
-                cell.imageView.image =[UIImage imageNamed:@"low"];
-                break;
-            }
-        }
-
-    }else{
-        switch (indexPath.section) {
-            case 0: {
+    
+    switch (indexPath.section) {
+        case 0: {
+            if (!_sorted) {
+                task= _savedTasks[indexPath.row];
+            }else{
                 task = _high[indexPath.row];
-                cell.imageView.image = [UIImage imageNamed:@"high"];
-                break;
             }
-            case 1: {
-                task = _medium[indexPath.row];
-                cell.imageView.image =[UIImage imageNamed:@"medium"];
-                break;
-            }
-            case 2: {
-                task = _low[indexPath.row];
-                cell.imageView.image =[UIImage imageNamed:@"low"];
-                break;
-            }
+            cell.imageView.image = [UIImage imageNamed:@"high"];
+            break;
+        }
+        case 1: {
+            task = _medium[indexPath.row];
+            cell.imageView.image =[UIImage imageNamed:@"medium"];
+            break;
+        }
+        case 2: {
+            task = _low[indexPath.row];
+            cell.imageView.image =[UIImage imageNamed:@"low"];
+            break;
         }
     }
         
@@ -138,9 +123,7 @@
 
 
 
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 
@@ -151,12 +134,24 @@
         Task *taskToDelete;
         
         switch (indexPath.section) {
-            case 0: taskToDelete = _high[indexPath.row]; break;
+            case 0: {
+                if (!_sorted) {
+                    taskToDelete = _savedTasks[indexPath.row];
+                }else{
+                    taskToDelete = _high[indexPath.row];
+                }
+                
+                break;
+            }
             case 1: taskToDelete = _medium[indexPath.row]; break;
             case 2: taskToDelete = _low[indexPath.row]; break;
         }
-        
-        [_savedTasks removeObject:taskToDelete];
+        NSUInteger index = [_savedTasks indexOfObject:taskToDelete];
+        if (index != NSNotFound) {
+            [_savedTasks removeObjectAtIndex:index];
+        }
+
+//        [_savedTasks removeObject:taskToDelete];
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_savedTasks requiringSecureCoding:NO error:nil];
         [_ud setObject:data forKey:@"tasks"];
         [_ud synchronize];
@@ -169,7 +164,15 @@
     DetailsViewController *detailsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"details"];
     
     switch (indexPath.section) {
-        case 0: detailsVC.task = _high[indexPath.row]; break;
+        case 0: {
+            if (!_sorted) {
+                detailsVC.task = _savedTasks[indexPath.row];
+            }else{
+                detailsVC.task = _high[indexPath.row];
+            }
+            
+            break;
+        }
         case 1: detailsVC.task = _medium[indexPath.row]; break;
         case 2: detailsVC.task = _low[indexPath.row]; break;
     }

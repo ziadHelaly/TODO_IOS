@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MyDelegation.h"
-@interface ViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,MyDelegation>
+@interface ViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,MyDelegation,UISearchBarDelegate>
 
 
 @end

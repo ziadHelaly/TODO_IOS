@@ -11,9 +11,10 @@
 #import "Task.h"
 #import "AddViewController.h"
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property NSArray<Task*> *high,*medium,*low;
+@property NSArray<Task*> *high,*medium,*low,*searched;
 
 @property NSMutableArray<Task*> *savedTasks;
 @property NSUserDefaults *ud;
@@ -25,10 +26,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _searchBar.delegate=self;
     
 }
 - (void)viewWillAppear:(BOOL)animated{
     [self categorizeTasks];
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    if (searchText.length != 0) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchText];
+        self.searched = [[_savedTasks filteredArrayUsingPredicate:predicate] mutableCopy];
+
+    }else{
+        self.searched = _savedTasks ;
+    }
+    [self categorizeFromArray:_searched];
 }
 - (IBAction)add:(id)sender {
     AddViewController *a =[self.storyboard instantiateViewControllerWithIdentifier:@"add"];
@@ -47,17 +59,15 @@
     } else {
         _savedTasks = [NSMutableArray new];
     }
-    _high = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 0 AND status == 0"]];
-    _medium = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 1 AND status == 0"]];
-    _low = [_savedTasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 2 AND status == 0"]];
-    
-    NSLog(@"%ld High tasks", (long)_high.count);
-    NSLog(@"%ld Medium tasks", (long)_medium.count);
-    NSLog(@"%ld Low tasks", (long)_low.count);
-    
+    _searched=_savedTasks;
+    [self categorizeFromArray:_searched];
+}
+- (void)categorizeFromArray:(NSArray<Task *> *)tasks {
+    _high = [tasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 0 AND status == 0"]];
+    _medium = [tasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 1 AND status == 0"]];
+    _low = [tasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"priority == 2 AND status == 0"]];
     [self.tableView reloadData];
 }
-
 - (void)update {
     [self categorizeTasks];
 }

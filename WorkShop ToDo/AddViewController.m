@@ -29,7 +29,7 @@
     _currentTask =[Task new];
     _currentTask.status=0;
     _currentTask.taskID= [[NSUUID UUID] UUIDString];
-
+    _taskDate.minimumDate=[NSDate date];
     _ud = [NSUserDefaults standardUserDefaults];
 }
 - (IBAction)addTask:(id)sender {
